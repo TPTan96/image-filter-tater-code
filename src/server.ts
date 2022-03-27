@@ -43,19 +43,19 @@ import { resolve } from 'path';
     let image_url = req.query.image_url
     let filePath: string
 
-    if (!image_url.startsWith("public\\")) {
+    if (!image_url.startsWith("public/")) {
       return res.send("invalid image_url")
     }
+
     try {
       filePath = await filterImageFromURL(image_url)
     } catch (error) {
       return res.send(error)
-
     }
 
 
 
-    res.sendFile(filePath, function (err) {
+    return res.sendFile(filePath, function (err) {
       if (err) {
         console.log(err)
       } else 
