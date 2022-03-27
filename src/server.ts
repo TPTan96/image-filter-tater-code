@@ -35,17 +35,17 @@ import { resolve } from 'path';
 
   // Root Endpoint
   // Displays a simple message to the user
-  app.get("/", async (req, res) => {
+  app.get("/", async (req:express.Request, res:express.Response) => {
     res.send("try GET /filteredimage?image_url={{}}")
   });
 
-  app.get("/filteredimage", async (req, res) => {
+  app.get("/filteredimage", async (req:express.Request, res:express.Response) => {
     let image_url = req.query.image_url
     let filePath: string
 
-    if (!image_url.startsWith("public/")) {
-      return res.send("invalid image_url")
-    }
+    // if (!image_url.startsWith("public/")) {
+    //   return res.send("invalid image_url")
+    // }
 
     try {
       filePath = await filterImageFromURL(image_url)
@@ -73,15 +73,3 @@ import { resolve } from 'path';
   });
 })();
 
-function getFiles(dir: string) {
-  let stack = [resolve(dir)];
-  let files: string[];
-  while (stack.length) {
-    dir = stack.pop();
-    fs.readdirSync(dir).forEach(item => {
-      const path = resolve(dir, item);
-      (fs.statSync(path).isDirectory() ? stack : files).push(path);
-    });
-  }
-  return files;
-};
