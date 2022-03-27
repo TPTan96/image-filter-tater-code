@@ -8,7 +8,7 @@ A basic Ionic client web application which consumes the RestAPI Backend. [Covere
 2. [The RestAPI Backend](https://github.com/udacity/cloud-developer/tree/master/course-02/exercises/udacity-c2-restapi), a Node-Express server which can be deployed to a cloud service. [Covered in the course]
 3. [The Image Filtering Microservice](https://github.com/udacity/cloud-developer/tree/master/course-02/project/image-filter-starter-code), the final project for the course. It is a Node-Express application which runs a simple script to process images. [Your assignment]
 ## endpoint URL
-http://image-filter-starter-code-dev22.ap-southeast-1.elasticbeanstalk.com/filteredimage?image_url=public/1_30aoNxlSnaYrLhBT0O1lzw.png
+http://project-2-dev2.ap-southeast-1.elasticbeanstalk.com/filteredimage?image_url=https://miro.medium.com/fit/c/250/168/1*D2GiIQQ8hP6eLvtpUgAOww.png
 ## Tasks
 
 ### Setup Node Environment
