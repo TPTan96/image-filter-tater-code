@@ -1,8 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import { filterImageFromURL, deleteLocalFiles } from './util/util';
-import * as fs from 'fs';
-import { resolve } from 'path';
 
 (async () => {
 
@@ -43,26 +41,24 @@ import { resolve } from 'path';
     let image_url = req.query.image_url
     let filePath: string
 
-    // if (!image_url.startsWith("public/")) {
-    //   return res.send("invalid image_url")
-    // }
+    if (!isValidHttpUrl(image_url)) {
+      return res.status(400).send("invalid image_url")
+    }
 
     try {
       filePath = await filterImageFromURL(image_url)
     } catch (error) {
-      return res.send(error)
+      return res.status(500).send(error)
     }
 
 
-
-    return res.sendFile(filePath, function (err) {
+    return res.status(200).sendFile(filePath, function (err) {
       if (err) {
         console.log(err)
       } else 
         deleteLocalFiles([filePath])
       }
     )
-
   });
 
 
@@ -73,3 +69,14 @@ import { resolve } from 'path';
   });
 })();
 
+function isValidHttpUrl(input: string): Boolean{
+  let url;
+  
+  try {
+    url = new URL(input);
+  } catch (_) {
+    return false;  
+  }
+
+  return url.protocol === "http:" || url.protocol === "https:";
+}
